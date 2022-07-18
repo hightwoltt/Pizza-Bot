@@ -2,8 +2,7 @@ from aiogram import Bot, types
 from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
 
-import os
-import datetime
+import os, json, datetime, string
 
 
 bot = Bot(token=os.getenv('TOKEN'))
@@ -15,7 +14,7 @@ dt_string_format = dt.strftime("Date %d.%m.%Y time: %H:%M:%S")
 
 
 async def on_startup(_):
-    print(f'\nБот запущен кореектно\n\nstatus - Online\ntime statted - {dt_string_format}')
+    print(f'\nBot started\n\nstatus - Online\ntime statted - {dt_string_format}')
 
 ''' ======================== CLIENT PART ======================== '''
 
@@ -45,7 +44,13 @@ async def pizza_place_command(message: types.Message):
         
 ''' ======================== ADMIM PART ======================== '''
 
-
+@dp.message_handler(commands=['Адрес'])
+async def badwords_validator(message: types.Message):
+    if{i.lower().translate(str.maketrans('', '', string.punctuation)) \
+        for i in message.text.split(' ')}.intersection(set(json.load \
+            (open('badwords_list.kson')))) != set():
+            await message.reply('Маты запрещены')
+            await message.delete()
 
 ''' ======================== GENERAL PART ======================== '''
 
