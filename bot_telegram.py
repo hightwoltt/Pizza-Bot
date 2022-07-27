@@ -39,8 +39,11 @@ async def pizza_place_command(message: types.Message):
 
 
 
-        
 ''' ======================== ADMIM PART ======================== '''
+
+
+
+''' ======================== GENERAL PART ======================== '''
 
 @dp.message_handler()
 async def echo_send(message: types.Message):
@@ -48,9 +51,6 @@ async def echo_send(message: types.Message):
             .intersection(set(json.load(open('commands/badwords.json')))) != set():
             await message.reply('Маты запрещены!!!')
             await message.delete()
-
-''' ======================== GENERAL PART ======================== '''
-
 
 
 
