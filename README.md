@@ -8,4 +8,4 @@
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Using Aiogram library, widh db_SQL_Lite.
-All packages in virtual environment by link -> 
+All packages in virtual environment by link -> https://drive.google.com/file/d/15XrXqqF7ViQUCpGBqgcO0zK9EKB8aBfD/view?usp=sharing
