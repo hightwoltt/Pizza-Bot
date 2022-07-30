@@ -1,9 +1,11 @@
 from aiogram.utils import executor
+
 from create_bot import dp
 from handlers import client, admin, other
 
-
 import datetime
+
+
 
 
 dt = datetime.datetime.now()
@@ -14,6 +16,7 @@ async def on_startup(_):
 
 
 client.register_client_handlers(dp)
+admin.register_admin_handlers(dp)
 other.register_other_hanlers(dp)
 
 executor.start_polling(
