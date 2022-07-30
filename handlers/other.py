@@ -6,9 +6,7 @@ import datetime
 import os
 
 
-
 ''' ======================== GENERAL PART ======================== '''
-
 
 async def chat_censorship(message: types.Message):
     if {i.lower().translate(str.maketrans('', '', string.punctuation)) for i in message.text.split(' ')}\

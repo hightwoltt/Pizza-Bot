@@ -6,8 +6,6 @@ from handlers import client, admin, other
 import datetime
 
 
-
-
 dt = datetime.datetime.now()
 dt_string_format = dt.strftime("Date %d.%m.%Y time: %H:%M")
 

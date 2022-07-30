@@ -5,7 +5,6 @@ from create_bot import dp, bot
 from keyboards import kb_client
 
 
-
 ''' ======================== CLIENT PART ======================== '''
 
 async def commands_start(message: types.Message):
