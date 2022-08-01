@@ -9,7 +9,8 @@ from keyboards import kb_client
 
 async def commands_start(message: types.Message):
     try:
-        await bot.send_message(message.from_user.id,  'Приятного аппетита', \
+        username = bot.user.first_name
+        await bot.send_message(message.from_user.id,  f'Приятного аппетита {username}', \
             reply_markup=kb_client
         )
         await message.delete()
