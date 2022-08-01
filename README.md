@@ -4,5 +4,11 @@
 # My first tutorial bot
 # ----------------------------------------------------------------
 # Using Aiogram library, widh db_SQL_Lite.
-# All virtual environment packages by link -> https://drive.google.com/file/d/15XrXqqF7ViQUCpGBqgcO0zK9EKB8aBfD/view?usp=sharing
+#
+# Before use: in the 3rd line of the bot_run.bat file, change the path to the downloaded venv folder, after moving it to the 
+# same folder with your project. Insert your token in line 7.
+# Before running bot_run.bat, also move it to the same folder in which the project is located.
+#
+# Virtual environment packages -> https://drive.google.com/file/d/15XrXqqF7ViQUCpGBqgcO0zK9EKB8aBfD/view?usp=sharing
 # .bat file that starts the bot -> https://drive.google.com/file/d/16MRtqWKFqb-fB8JAkogi0K-TJvOwd28J/view?usp=sharing
+
