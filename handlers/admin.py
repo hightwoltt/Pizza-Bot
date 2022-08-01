@@ -77,10 +77,13 @@ async def load_price(message : types.Message, state: FSMContext):
 
 def register_admin_handlers(dp : Dispatcher):
     dp.register_message_handler(cm_start, commands=['Загрузить'], state=None)
+    dp.register_message_handler(cancel_handler, state='*', commands='Отмена')
+    dp.register_message_handler(cancel_handler, Text(equals='Отмена', ignore_case=True), state='*')
     dp.register_message_handler(load_photo, content_types=['photo'], state=FSMAdmin.photo)
     dp.register_message_handler(load_name, state=FSMAdmin.name)
     dp.register_message_handler(load_description, state=FSMAdmin.description)
     dp.register_message_handler(load_price, state=FSMAdmin.price)
-    dp.register_message_handler(cancel_handler, state='*', commands='Отмена')
-    dp.register_message_handler(cancel_handler, Text(equals='Отмена', ignore_case=True), state='*')
     dp.register_message_handler(make_changes_command, commands=['Godmode_on'], is_chat_admin=True)
+
+
+     
