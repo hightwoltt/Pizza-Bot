@@ -9,13 +9,12 @@ from keyboards import kb_client
 
 async def commands_start(message: types.Message):
     try:
-        username = bot.user.first_name
-        await bot.send_message(message.from_user.id,  f'Приятного аппетита {username}', \
+        await bot.send_message(message.from_user.id, 'Привет, я бот пиццерии 3.14zza не хочешь посмотреть меню?', \
             reply_markup=kb_client
         )
         await message.delete()
     except:
-        await message.reply('Общение с ботом через ЛС, наишите ему:\
+        await message.reply('Общение с ботом через ЛС, наишите ему: \
             \nhttps//t.me/TODO-BRO-BOT')
 
 

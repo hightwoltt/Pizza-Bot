@@ -36,7 +36,7 @@ async def cancel_handler(message: types.Message, state: FSMContext):
         if current_state is None:
             return
         await state.finish()
-        await message.reply('Oк')
+        await message.reply('Операция отменена')
 
 
 async def load_photo(message: types.Message, state: FSMContext):
