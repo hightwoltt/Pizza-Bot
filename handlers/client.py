@@ -7,6 +7,7 @@ from keyboards import kb_client
 
 ''' ======================== CLIENT PART ======================== '''
 
+# Bot start command and send message from user
 async def commands_start(message: types.Message):
     try:
         await bot.send_message(message.from_user.id, 'Привет, я бот пиццерии 3.14zza не хочешь посмотреть меню?', \
@@ -18,18 +19,19 @@ async def commands_start(message: types.Message):
             \nhttps//t.me/TODO-BRO-BOT')
 
 
+# Work schedule output fuction
 async def pizza_open_command(message: types.Message):
     await bot.send_message(message.from_user.id, \
         ' Пн-Пт 9:00 - 22:00 \nСб-Вс 9:00 - 02:00',
         )
 
-
+# Place adress output fuction
 async def pizza_place_command(message: types.Message):
     await bot.send_message(message.from_user.id, \
         'Восток-2; Дом-5; Кв-27'  
         )
 
-
+# Register decorators
 def register_client_handlers(dp : Dispatcher):
     dp.register_message_handler(commands_start, commands=['start', 'help'])
     dp.register_message_handler(pizza_open_command, commands=['Режим_работы'])

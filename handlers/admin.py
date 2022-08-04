@@ -16,20 +16,20 @@ class FSMAdmin(StatesGroup):
     description = State()
     price = State()
 
-
+# Signal that admin mode is enabled
 async def make_changes_command(message: types.Message):
     global ID
     ID = message.from_user.id
     await bot.send_message(message.from_user.id, 'Что тебе нужно хозяин?')
     await message.delete()
 
-
+# Start add position
 async def cm_start(message : types.Message):
     if message.from_user.id == ID:
         await FSMAdmin.photo.set()
         await message.reply('Загрузите фото')
     
-
+# Cancel position creation
 async def cancel_handler(message: types.Message, state: FSMContext):
     if message.from_user.id == ID:
         current_state = await state.get_state()
@@ -38,7 +38,7 @@ async def cancel_handler(message: types.Message, state: FSMContext):
         await state.finish()
         await message.reply('Операция отменена')
 
-
+# Load position photo
 async def load_photo(message: types.Message, state: FSMContext):
     if message.from_user.id == ID:
         async with state.proxy() as data:
@@ -46,7 +46,7 @@ async def load_photo(message: types.Message, state: FSMContext):
         await FSMAdmin.next()
         await message.reply('Теперь название')
 
-
+# Load position name
 async def load_name(message : types.Message, state: FSMContext):
     if message.from_user.id == ID:
         async with state.proxy() as data:
@@ -54,7 +54,7 @@ async def load_name(message : types.Message, state: FSMContext):
         await FSMAdmin.next()
         await message.reply('Добавьте описание')
 
-
+# Load position description
 async def load_description(message : types.Message, state: FSMContext):
     if message.from_user.id == ID:
         async with state.proxy() as data:
@@ -62,7 +62,7 @@ async def load_description(message : types.Message, state: FSMContext):
         await FSMAdmin.next()
         await message.reply('Назначьте цену')
 
-
+# Load position price
 async def load_price(message : types.Message, state: FSMContext):
     if message.from_user.id == ID:  
         async with state.proxy() as data:
@@ -74,7 +74,7 @@ async def load_price(message : types.Message, state: FSMContext):
         await message.answer('Позиция добавленна в меню')
         await state.finish()
 
-
+# Register decorators
 def register_admin_handlers(dp : Dispatcher):
     dp.register_message_handler(cm_start, commands=['Загрузить'], state=None)
     dp.register_message_handler(cancel_handler, state='*', commands='Отмена')

@@ -8,6 +8,7 @@ import os
 
 ''' ======================== GENERAL PART ======================== '''
 
+# Censorship for general chat
 async def chat_censorship(message: types.Message):
     if {i.lower().translate(str.maketrans('', '', string.punctuation)) for i in message.text.split(' ')}\
             .intersection(set(json.load(open('commands/badwords.json')))) != set():
@@ -15,5 +16,6 @@ async def chat_censorship(message: types.Message):
             await message.delete()
 
 
+# Register decorators
 def register_other_hanlers(dp : Dispatcher):
     dp.register_message_handler(chat_censorship)

@@ -9,14 +9,17 @@ import datetime
 dt = datetime.datetime.now()
 dt_string_format = dt.strftime("Date %d.%m.%Y time: %H:%M")
 
+# Print bot status 
 async def on_startup(_):
     print(f'\nBot started\n\nstatus - Online\ntime statted - {dt_string_format}')
 
 
+# Reegister all handlers
 client.register_client_handlers(dp)
 admin.register_admin_handlers(dp)
 other.register_other_hanlers(dp)
 
+# Start polling
 executor.start_polling(
     dp, 
     skip_updates=True,
