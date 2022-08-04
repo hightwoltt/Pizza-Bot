@@ -2,6 +2,7 @@ from aiogram.utils import executor
 
 from create_bot import dp
 from handlers import client, admin, other
+from data_base import sql_base
 
 import datetime
 
@@ -11,7 +12,11 @@ dt_string_format = dt.strftime("Date %d.%m.%Y time: %H:%M")
 
 # Print bot status 
 async def on_startup(_):
-    print(f'\nBot started\n\nstatus - Online\ntime statted - {dt_string_format}')
+
+    sql_base.sql_start()
+    print(f'\nBot started\n\
+        \nstatus - Online\
+        \ntime statted - {dt_string_format}')
 
 
 # Reegister all handlers

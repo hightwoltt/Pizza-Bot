@@ -4,6 +4,8 @@ from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram import types, Dispatcher
 
 from create_bot import dp, bot
+from data_base import sql_base
+from keyboards import admin_keyboards
 
 
 ''' ======================== ADMIN PART ======================== '''
@@ -20,7 +22,8 @@ class FSMAdmin(StatesGroup):
 async def make_changes_command(message: types.Message):
     global ID
     ID = message.from_user.id
-    await bot.send_message(message.from_user.id, 'Что тебе нужно хозяин?')
+    await bot.send_message(message.from_user.id, 'Что тебе нужно хозяин?',
+        reply_markup=admin_keyboards.button_case_admin)
     await message.delete()
 
 # Start add position
@@ -68,8 +71,7 @@ async def load_price(message : types.Message, state: FSMContext):
         async with state.proxy() as data:
             data['price'] = float(message.text)
 
-        async with state.proxy() as data:
-            await message.reply(str(data))
+        await sql_base.sql_add_command(state)
 
         await message.answer('Позиция добавленна в меню')
         await state.finish()
