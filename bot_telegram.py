@@ -7,8 +7,7 @@ from data_base import sql_base
 import datetime
 
 
-dt = datetime.datetime.now()
-dt_string_format = dt.strftime("Date %d.%m.%Y time: %H:%M")
+dt = datetime.datetime.now().strftime("Date %d.%m.%Y time: %H:%M")
 
 # Print bot status 
 async def on_startup(_):
@@ -16,7 +15,7 @@ async def on_startup(_):
     sql_base.sql_start()
     print(f'\nBot started\n\
         \nstatus - Online\
-        \ntime statted - {dt_string_format}')
+        \ntime statted - {dt}')
 
 
 # Reegister all handlers

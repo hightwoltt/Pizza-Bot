@@ -1,6 +1,7 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 
 
+# Initialisation a buttons
 b1 = KeyboardButton('/Режим_работы')
 b2 = KeyboardButton('/Адрес')
 b3 = KeyboardButton('/Меню')
@@ -13,7 +14,7 @@ b_load = KeyboardButton('/Загрузить')
 b_delete = KeyboardButton('/Удалить')
 
 
-
+# Buttons panel visual setting
 button_case_admin = ReplyKeyboardMarkup(resize_keyboard=True)\
     .add(b_load).add(b_delete)
 

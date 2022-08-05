@@ -18,6 +18,7 @@ class FSMAdmin(StatesGroup):
     description = State()
     price = State()
 
+
 # Signal that admin mode is enabled
 async def make_changes_command(message: types.Message):
     global ID
@@ -26,11 +27,13 @@ async def make_changes_command(message: types.Message):
         reply_markup=admin_keyboards.button_case_admin)
     await message.delete()
 
+
 # Start add position
 async def cm_start(message : types.Message):
     if message.from_user.id == ID:
         await FSMAdmin.photo.set()
         await message.reply('Загрузите фото')
+    
     
 # Cancel position creation
 async def cancel_handler(message: types.Message, state: FSMContext):
@@ -41,6 +44,7 @@ async def cancel_handler(message: types.Message, state: FSMContext):
         await state.finish()
         await message.reply('Операция отменена')
 
+
 # Load position photo
 async def load_photo(message: types.Message, state: FSMContext):
     if message.from_user.id == ID:
@@ -48,6 +52,7 @@ async def load_photo(message: types.Message, state: FSMContext):
             data['photo'] = message.photo[0].file_id
         await FSMAdmin.next()
         await message.reply('Теперь название')
+
 
 # Load position name
 async def load_name(message : types.Message, state: FSMContext):
@@ -57,6 +62,7 @@ async def load_name(message : types.Message, state: FSMContext):
         await FSMAdmin.next()
         await message.reply('Добавьте описание')
 
+
 # Load position description
 async def load_description(message : types.Message, state: FSMContext):
     if message.from_user.id == ID:
@@ -64,6 +70,7 @@ async def load_description(message : types.Message, state: FSMContext):
             data['description'] = message.text
         await FSMAdmin.next()
         await message.reply('Назначьте цену')
+
 
 # Load position price
 async def load_price(message : types.Message, state: FSMContext):
@@ -76,7 +83,8 @@ async def load_price(message : types.Message, state: FSMContext):
         await message.answer('Позиция добавленна в меню')
         await state.finish()
 
-# Register decorators
+
+# Registering commands for a bot (instead of using decorators)
 def register_admin_handlers(dp : Dispatcher):
     dp.register_message_handler(cm_start, commands=['Загрузить'], state=None)
     dp.register_message_handler(cancel_handler, state='*', commands='Отмена')

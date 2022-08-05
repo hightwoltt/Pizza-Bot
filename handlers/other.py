@@ -16,6 +16,6 @@ async def chat_censorship(message: types.Message):
             await message.delete()
 
 
-# Register decorators
+# Registering commands for a bot (instead of using decorators)
 def register_other_hanlers(dp : Dispatcher):
     dp.register_message_handler(chat_censorship)
