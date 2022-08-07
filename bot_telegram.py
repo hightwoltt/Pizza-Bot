@@ -1,7 +1,7 @@
 from aiogram.utils import executor
 
 from create_bot import dp
-from handlers import client, admin, other
+from bot_handlers import client, admin, other
 from data_base import sql_base
 
 import datetime
@@ -22,6 +22,7 @@ async def on_startup(_):
 client.register_client_handlers(dp)
 admin.register_admin_handlers(dp)
 other.register_other_hanlers(dp)
+
 
 # Start polling
 executor.start_polling(
