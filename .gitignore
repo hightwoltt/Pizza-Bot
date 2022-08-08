@@ -53,10 +53,7 @@ coverage.xml
 *.pot
 
 # Data bases
-.sqlite3
-.sql
 .sqbpro
-.db
 
 # Django stuff:
 *.log
@@ -119,3 +116,4 @@ dmypy.json
 # Pyre type checker
 .pyre/
 3,14zza.db
+3,14zza.sqbpro

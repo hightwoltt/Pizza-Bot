@@ -1,17 +1,19 @@
 from aiogram.types import Message, ShippingOption, ShippingQuery, LabeledPrice, PreCheckoutQuery
-from aiogram.types import ContentType
+from aiogram.types.message import ContentType
+from aiogram import Dispatcher
 
-from pay_messages import MESSAGES
-from pay_configs import PAYMENTS_TOKEN, items_image
 
+from pay_system.pay_messages import MESSAGES
+from pay_system.pay_configs import PAYMENTS_TOKEN, items_image
 from create_bot import dp, bot
+
+import datetime
 
 
 PRICES = [
     LabeledPrice(label='Пицца 4 Сыра', amount=4000),
     LabeledPrice(label='Пепперони', amount=5000)
 ]
-
 
 SPEED_SHIP = ShippingOption(
     id='speed_ship',
@@ -31,26 +33,29 @@ PICKUP_SHIP = ShippingOption(
 ).add(LabeledPrice('На складе ближайшего мазазина', 100))
 
 
-@dp.message_handler(commands=['start'])
-async def start_command(message: Message):
+@dp.message_handler(commands=['pay_start'])
+async def start_cmd(message: Message):
     await message.answer(MESSAGES['start'])
 
-@dp.message_handler(commands=['terns'])
-async def help_command(message: Message):
-    await message.answer(MESSAGES['terns'])
 
-@dp.message_handler(commands=['help'])
-async def terns_command(message: Message):
+@dp.message_handler(commands=['pay_help'])
+async def help_cmd(message: Message):
     await message.answer(MESSAGES['help'])
+
+
+@dp.message_handler(commands=['terms'])
+async def terms_cmd(message: Message):
+    await message.answer(MESSAGES['terms'])
+
 
 @dp.message_handler(commands=['buy'])
 async def buy_command(message: Message):
-    await bot.send_invoice(messaage.chat.id,
+    await bot.send_invoice(message.chat.id,
         title = MESSAGES['title'],
         description = MESSAGES['description'],
         provaider_token = PAYMENTS_TOKEN,
         currency = 'KZT',
-        item_img = item,
+        item_img = items_image,
         photo_height = 1920,
         photo_width = 1080,
         photo_size = 1920,
@@ -86,7 +91,7 @@ async def shipping_procces(shipping_query: ShippingQuery):
         shipping_options = shipping_options
     )
 
-@dp.pre_checkout_quey_handler(lambda q: True)
+@dp.pre_checkout_query_handler(lambda q: True)
 async def checkout_procces(pre_checkout_query: PreCheckoutQuery):
     await bot.answer_pre_checkout_querry(pre_checkout_query.id, ok=True)
 
@@ -99,3 +104,5 @@ async def successful_payment(message : Message):
             total_amount, currency=message.successful_payment.currency)
 
     )
+    
+    
