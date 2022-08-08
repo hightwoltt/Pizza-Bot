@@ -15,6 +15,7 @@ PRICES = [
     LabeledPrice(label='Пепперони', amount=5000)
 ]
 
+
 SPEED_SHIP = ShippingOption(
     id='speed_ship',
     title='Наибыстрейшая доставка'
@@ -91,6 +92,7 @@ async def shipping_procces(shipping_query: ShippingQuery):
         shipping_options = shipping_options
     )
 
+
 @dp.pre_checkout_query_handler(lambda q: True)
 async def checkout_procces(pre_checkout_query: PreCheckoutQuery):
     await bot.answer_pre_checkout_querry(pre_checkout_query.id, ok=True)
@@ -102,7 +104,6 @@ async def successful_payment(message : Message):
         message.chat.id,
         MESSAGES['successful_payment'].format(total_amount=message.successful_payment.\
             total_amount, currency=message.successful_payment.currency)
-
     )
     
     
