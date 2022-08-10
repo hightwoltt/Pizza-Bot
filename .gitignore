@@ -52,11 +52,6 @@ coverage.xml
 *.mo
 *.pot
 
-# Data bases
-.sqlite3
-.sql
-.sqbpro
-.db
 
 # Django stuff:
 *.log

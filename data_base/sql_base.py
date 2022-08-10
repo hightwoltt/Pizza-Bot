@@ -30,4 +30,3 @@ async def sql_read(message):
                 \nОписание: {position[2]}\n \
                 \nЦена - {position[3]}'
         )
-    

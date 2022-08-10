@@ -2,6 +2,7 @@ from aiogram.utils import executor
 
 from create_bot import dp
 from bot_handlers import client, admin, other
+import pay_configs, pay_messages
 from data_base import sql_base
 
 import datetime

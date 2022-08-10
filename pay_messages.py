@@ -8,12 +8,12 @@ start_message = ''' Привет! Сейчас ты увидишь работу 
 
 pre_buy_alert = ''' Счёт для оплаты '''
 
-terns = ''' Правила '''
+terns = ''' Правила (добавлю сводку несколько позже) '''
 
 # ======= ПРИДУМАТЬ КАК РЕАЛИЗОВАТЬ ПЕРЕДАЧУ НЕСКОЛЬКИХ ТОВАРОВ СЮДА =======
-#
+
 items_title = ''' Пепперони ''' 
-#
+
 items_description = ''' ПИЦЦА ПИЗДАТАЯ '''
 
 UK_ERR = ''' К сожалению в данную локацию доставку совершить нельзя '''
@@ -28,7 +28,7 @@ MESSAGES = {
     'pre_buy_alert' : pre_buy_alert,
     'terns' : terns,
     'item_title' : items_title,
-    'item'  :items_description,
+    'items_description'  :items_description,
     'COUNTRY_ERROR' : UK_ERR,
     'successful_payment' : successful_payment,
 }
