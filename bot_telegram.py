@@ -19,6 +19,7 @@ async def on_startup(_):
         \ntime statted - {dt}')
 
 
+
 # Reegister all handlers
 client.register_client_handlers(dp)
 admin.register_admin_handlers(dp)
@@ -29,5 +30,5 @@ other.register_other_hanlers(dp)
 executor.start_polling(
     dp, 
     skip_updates=True,
-    on_startup=on_startup
+    on_startup=on_startup,
 )
