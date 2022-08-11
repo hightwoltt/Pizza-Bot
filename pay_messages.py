@@ -4,9 +4,7 @@ help_message = '''
 Чир-бы ознакомиься с меню /menu
  '''
 
-start_message = ''' Привет! Сейчас ты увидишь работу платежей в Telegram!\n + help_message '''
-
-pre_buy_alert = ''' Счёт для оплаты '''
+pre_buy_alert = ''' Счёт для оплаты вашего заказа '''
 
 terns = ''' Правила (добавлю сводку несколько позже) '''
 
@@ -23,7 +21,6 @@ successful_payment = '''
 '''
 
 MESSAGES = {
-    'start' : start_message,
     'help' : help_message,
     'pre_buy_alert' : pre_buy_alert,
     'terns' : terns,
