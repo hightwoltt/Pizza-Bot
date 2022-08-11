@@ -52,8 +52,11 @@ coverage.xml
 *.mo
 *.pot
 
+<<<<<<< HEAD
+=======
 # Data bases
 .sqbpro
+>>>>>>> d7fe6918246eae94cd0eacaa36ebfb9f576839c7
 
 # Django stuff:
 *.log
