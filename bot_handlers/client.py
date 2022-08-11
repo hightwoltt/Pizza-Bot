@@ -108,7 +108,7 @@ async def successful_payment(message : Message):
 
 @dp.shipping_query_handler(lambda q: True)
 async def shipping_procces(shipping_query: ShippingQuery):
-    if shipping_query.shipping_address.coununtry_code == 'RU':
+    if shipping_query.shipping_address.country_code == 'RU':
         return await bot.answer.shipping_query(
         shipping_query.id,
         ok=False,
@@ -117,13 +117,13 @@ async def shipping_procces(shipping_query: ShippingQuery):
 
     shipping_options = [SPEED_SHIP]
 
-    if shipping_query.shipping_adress.coununtry_code == 'KZ':
-        shipping_query.append(STANDARD_SHIP)
+    if shipping_query.shipping_address.country_code == 'KZ':
+        shipping_options.append(STANDARD_SHIP)
 
-        if shipping_query.shipping_adress.sity == 'Караганда':
-            shipping_query.append(PICKUP_SHIP)
+        if shipping_query.shipping_address.city == 'Караганда':
+            shipping_options.append(PICKUP_SHIP)
     
-    await bot.answer_shipping_querry(
+    await bot.answer_shipping_query(
         shipping_query.id,
         ok=True,
         shipping_options = shipping_options
@@ -131,7 +131,7 @@ async def shipping_procces(shipping_query: ShippingQuery):
 
 @dp.pre_checkout_query_handler(lambda q: True)
 async def checkout_procces(pre_checkout_query: PreCheckoutQuery):
-    await bot.answer_pre_checkout_querry(pre_checkout_query.id, ok=True)
+    await bot.answer_pre_checkout_query(pre_checkout_query.id, ok=True)
 
 
 # Registering commands for a bot (instead of using decorators)
