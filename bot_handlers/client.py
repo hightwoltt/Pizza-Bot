@@ -6,7 +6,7 @@ from aiogram.types import (ReplyKeyboardRemove, ContentType,
 
 
 from create_bot import dp, bot
-from keyboards import kb_client
+from keyboards import kb_client, order_keyboards
 from data_base import sql_base
 from pay_messages import MESSAGES
 from pay_configs import PAYMENTS_TOKEN, item_url
@@ -18,8 +18,7 @@ from pay_configs import PAYMENTS_TOKEN, item_url
 async def commands_start(message: types.Message):
     try:
         await bot.send_message(message.from_user.id, 'Привет, я бот пиццерии 3.14zza не хочешь посмотреть меню?', \
-            reply_markup=kb_client
-        )
+            reply_markup=kb_client)
         await message.delete()
     except:
         await message.reply('Общение с ботом через ЛС, наишите ему: \
@@ -29,20 +28,24 @@ async def commands_start(message: types.Message):
 # Work schedule output fuction
 async def pizza_open_command(message: types.Message):
     await bot.send_message(message.from_user.id, \
-        ' Пн-Пт 9:00 - 22:00 \nСб-Вс 9:00 - 02:00',
-        )
+        ' Пн-Пт 9:00 - 22:00 \nСб-Вс 9:00 - 02:00')
 
 
 # Place adress output fuction
 async def pizza_place_command(message: types.Message):
     await bot.send_message(message.from_user.id, \
-        'Восток-2; Дом-5; Кв-27'  
-        )
+        'Восток-2; Дом-5; Кв-27')
 
 
 # Output menu positions
 async def pizza_menu_comand(message: types.Message):
-    await sql_base.sql_read(message)
+    await bot.send_message(message.from_user.id, 'Что вы хотите заказать?', reply_markup=order_keyboards.button_case_order)
+    if (message.text == 'Еда'):
+        await sql_base.sql_read(message)
+    elif (message.text == 'Напитки'):
+        await sql_base.sql_read(message)
+    
+        
 
 
 
@@ -72,6 +75,9 @@ PICKUP_SHIP = ShippingOption(
     id='pickup_ship',
     title='В любоой день с 9:00 до 18:00'
 ).add(LabeledPrice('На складе ближайшего мазазина', 100))
+
+
+client_order = []
 
 
 async def terns_command(message: Message):
