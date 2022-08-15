@@ -15,14 +15,34 @@ def sql_start():
     base.commit()
 
 
-# Add a insert command
+# Insert to database command
 async def sql_add_command(state):
     async with state.proxy() as data:
         cur.execute('INSERT INTO menu VALUES (?, ?, ?, ?)', tuple(data.values()))
         base.commit()
 
 
-# Add a menue output command
+# Full menu output command
+async def sql_read(message):
+    for position in cur.execute('SELECT * FROM menu').fetchall():
+        await bot.send_photo(message.from_user.id, position[0],
+                f'{position[1]}\n \
+                \nОписание: {position[2]}\n \
+                \nЦена - {position[3]}'
+        )
+        
+
+# Drinks menu output command
+async def sql_read(message):
+    for position in cur.execute('SELECT * FROM menu').fetchall():
+        await bot.send_photo(message.from_user.id, position[0],
+                f'{position[1]}\n \
+                \nОписание: {position[2]}\n \
+                \nЦена - {position[3]}'
+        )
+        
+        
+# Eat menu output command
 async def sql_read(message):
     for position in cur.execute('SELECT * FROM menu').fetchall():
         await bot.send_photo(message.from_user.id, position[0],
