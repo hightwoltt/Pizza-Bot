@@ -11,7 +11,13 @@ def sql_start():
     
     if base:
         print('\n****** Data base connected ******\n')
-    base.execute('CREATE TABLE IF NOT EXISTS menu(img TEXT, name TEXT PRIMARY KEY, description TEXT, price TEXT)')
+    base.execute('CREATE TABLE IF NOT EXISTS client(img TEXT, name TEXT PRIMARY KEY, description TEXT, price TEXT)')
+    base.execute('CREATE TABLE IF NOT EXISTS statuses(img TEXT, name TEXT PRIMARY KEY, description TEXT, price TEXT)')
+    base.execute('CREATE TABLE IF NOT EXISTS order(img TEXT, name TEXT PRIMARY KEY, description TEXT, price TEXT)')
+    base.execute('CREATE TABLE IF NOT EXISTS positions(img TEXT, name TEXT PRIMARY KEY, description TEXT, price TEXT)')
+    base.execute('CREATE TABLE IF NOT EXISTS payment(img TEXT, name TEXT PRIMARY KEY, description TEXT, price TEXT)')
+    base.execute('CREATE TABLE IF NOT EXISTS classes(img TEXT, name TEXT PRIMARY KEY, description TEXT, price TEXT)')
+    base.execute('CREATE TABLE IF NOT EXISTS pay_card(img TEXT, name TEXT PRIMARY KEY, description TEXT, price TEXT)')
     base.commit()
 
 
@@ -32,6 +38,18 @@ async def sql_read(message):
         )
         
 
+
+def sql_start_drinks():
+    global base, cur
+    base = sq.connect('3,14zza.db')
+    cur = base.cursor()
+    
+    if base:
+        print('\n****** Data base connected ******\n')
+    base.execute('CREATE TABLE IF NOT EXISTS drinks(img TEXT, name TEXT PRIMARY KEY, description TEXT, price TEXT)')
+    base.commit()
+
+
 # Drinks menu output command
 async def sql_read(message):
     for position in cur.execute('SELECT * FROM menu').fetchall():
@@ -39,9 +57,20 @@ async def sql_read(message):
                 f'{position[1]}\n \
                 \nОписание: {position[2]}\n \
                 \nЦена - {position[3]}'
-        )
+        )     
         
-        
+
+def sql_start_eat():
+    global base, cur
+    base = sq.connect('3,14zza.db')
+    cur = base.cursor()
+    
+    if base:
+        print('\n****** Data base connected ******\n')
+    base.execute('CREATE TABLE IF NOT EXISTS eat(img TEXT, name TEXT PRIMARY KEY, description TEXT, price TEXT)')
+    base.commit()
+
+
 # Eat menu output command
 async def sql_read(message):
     for position in cur.execute('SELECT * FROM menu').fetchall():

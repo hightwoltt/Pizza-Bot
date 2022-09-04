@@ -50,7 +50,6 @@ async def pizza_menu_comand(message: types.Message):
 
 
 
-
 ''' ==================== CLIENT PAYMENT PART ==================== '''
 
 
