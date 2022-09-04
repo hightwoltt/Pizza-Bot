@@ -11,14 +11,16 @@ def sql_start():
     
     if base:
         print('\n****** Data base connected ******\n')
-    base.execute('CREATE TABLE IF NOT EXISTS client(img TEXT, name TEXT PRIMARY KEY, description TEXT, price TEXT)')
-    base.execute('CREATE TABLE IF NOT EXISTS statuses(img TEXT, name TEXT PRIMARY KEY, description TEXT, price TEXT)')
-    base.execute('CREATE TABLE IF NOT EXISTS order(img TEXT, name TEXT PRIMARY KEY, description TEXT, price TEXT)')
-    base.execute('CREATE TABLE IF NOT EXISTS positions(img TEXT, name TEXT PRIMARY KEY, description TEXT, price TEXT)')
-    base.execute('CREATE TABLE IF NOT EXISTS payment(img TEXT, name TEXT PRIMARY KEY, description TEXT, price TEXT)')
-    base.execute('CREATE TABLE IF NOT EXISTS classes(img TEXT, name TEXT PRIMARY KEY, description TEXT, price TEXT)')
-    base.execute('CREATE TABLE IF NOT EXISTS pay_card(img TEXT, name TEXT PRIMARY KEY, description TEXT, price TEXT)')
-    base.commit()
+
+        base.execute('CREATE TABLE IF NOT EXISTS client(img TEXT, name TEXT PRIMARY KEY, description TEXT, price TEXT)')
+        base.execute('CREATE TABLE IF NOT EXISTS statuses(img TEXT, name TEXT PRIMARY KEY, description TEXT, price TEXT)')
+        base.execute('CREATE TABLE IF NOT EXISTS order(img TEXT, name TEXT PRIMARY KEY, description TEXT, price TEXT)')
+        base.execute('CREATE TABLE IF NOT EXISTS positions(img TEXT, name TEXT PRIMARY KEY, description TEXT, price TEXT)')
+        base.execute('CREATE TABLE IF NOT EXISTS payment_history(img TEXT, name TEXT PRIMARY KEY, description TEXT, price TEXT)')
+        base.execute('CREATE TABLE IF NOT EXISTS classes(img TEXT, name TEXT PRIMARY KEY, description TEXT, price TEXT)')
+
+        base.commit()
+        print('\n****** Data status << OK >> ******\n')
 
 
 # Insert to database command
