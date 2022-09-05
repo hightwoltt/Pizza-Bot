@@ -11,7 +11,24 @@ def sql_start():
     
     if base:
         print('\n****** Data base connected ******\n')
-    base.execute('CREATE TABLE IF NOT EXISTS menu(img TEXT, name TEXT PRIMARY KEY, description TEXT, price TEXT)')
+    base.execute('CREATE TABLE IF NOT EXISTS classes(eat TEXT,\
+    drink, TEXT, combo -> ДОЛЖНА БЫТЬ ССЫЛКА НА ОБЪЕКТЫ БАЗЫ С НЕСКОЛЬКИМИ ПОЗИЦИЯМИ)')
+
+    base.execute('CREATE TABLE IF NOT EXISTS statuses(new_client INTEGER,\
+    client INTEGER, premium_client INTEGER)')
+
+    base.execute('CREATE TABLE IF NOT EXISTS order(client INTEGER, order_positions FOREIGN KEY\
+        position.id)')
+
+    base.execute('CREATE TABLE IF NOT EXISTS position(photo TEXT, name TEXT, \
+        description TEXT, price INTEGER, class FOREING KEY classes.id)')
+
+    base.execute('CREATE TABLE IF NOT EXISTS payment(payment_client FOREING KEY order.id, \
+        payment_date DATETIME, payment_order FOREING KEY order.id)')
+
+    base.execute('CREATE TABLE IF NOT EXISTS client(name TEXT, status FOREIGN KEY statuses.id,\
+        adress TEXT, phone_number TEXT, payments_history FOREIGN KEY payment.id)')
+
     base.commit()
 
 
@@ -34,7 +51,7 @@ async def sql_read(message):
 
 # Drinks menu output command
 async def sql_read(message):
-    for position in cur.execute('SELECT * FROM menu').fetchall():
+    for position in cur.execute('SELECT drinks FROM menu').fetchall():
         await bot.send_photo(message.from_user.id, position[0],
                 f'{position[1]}\n \
                 \nОписание: {position[2]}\n \
@@ -44,7 +61,7 @@ async def sql_read(message):
         
 # Eat menu output command
 async def sql_read(message):
-    for position in cur.execute('SELECT * FROM menu').fetchall():
+    for position in cur.execute('SELECT eat FROM menu').fetchall():
         await bot.send_photo(message.from_user.id, position[0],
                 f'{position[1]}\n \
                 \nОписание: {position[2]}\n \
