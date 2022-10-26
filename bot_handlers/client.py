@@ -94,13 +94,19 @@ async def buy_command(message: Message):
         photo_width = 880,
         photo_size = 800,
         need_email=True,
-        need_phone_number=True,
+        need_phone_number=False,
         is_flexible=True,
         prices=PRICES,
         start_parameter='example',
         payload='some_invoice'
     )
 
+
+async def failed_payment(message: Message):
+    await bot.send_message.from_user.id(
+        'Платёж отклонен проверьте платёжные реквизиы \
+        или обратитесь к поставщику услуг'
+    )
 
 async def successful_payment(message : Message):
     await bot.send_message(
