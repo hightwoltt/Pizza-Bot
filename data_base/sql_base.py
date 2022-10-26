@@ -11,59 +11,86 @@ def sql_start():
     
     if base:
         print('\n****** Data base connected ******\n')
-    base.execute('CREATE TABLE IF NOT EXISTS classes(eat TEXT,\
-    drink, TEXT, combo -> ДОЛЖНА БЫТЬ ССЫЛКА НА ОБЪЕКТЫ БАЗЫ С НЕСКОЛЬКИМИ ПОЗИЦИЯМИ)')
 
-    base.execute('CREATE TABLE IF NOT EXISTS statuses(new_client INTEGER,\
-    client INTEGER, premium_client INTEGER)')
+        base.execute('CREATE TABLE IF NOT EXISTS classes(id PRIMARY KEY,\
+            class TEXT)')
 
-    base.execute('CREATE TABLE IF NOT EXISTS order(client INTEGER, order_positions FOREIGN KEY\
-        position.id)')
-
-    base.execute('CREATE TABLE IF NOT EXISTS position(photo TEXT, name TEXT, \
-        description TEXT, price INTEGER, class FOREING KEY classes.id)')
-
-    base.execute('CREATE TABLE IF NOT EXISTS payment(payment_client FOREING KEY order.id, \
-        payment_date DATETIME, payment_order FOREING KEY order.id)')
-
-    base.execute('CREATE TABLE IF NOT EXISTS client(name TEXT, status FOREIGN KEY statuses.id,\
-        adress TEXT, phone_number TEXT, payments_history FOREIGN KEY payment.id)')
-
-    base.commit()
-
-
-# Insert to database command
-async def sql_add_command(state):
-    async with state.proxy() as data:
-        cur.execute('INSERT INTO menu VALUES (?, ?, ?, ?)', tuple(data.values()))
-        base.commit()
-
-
-# Full menu output command
-async def sql_read(message):
-    for position in cur.execute('SELECT * FROM menu').fetchall():
-        await bot.send_photo(message.from_user.id, position[0],
-                f'{position[1]}\n \
-                \nОписание: {position[2]}\n \
-                \nЦена - {position[3]}'
+        base.execute('CREATE TABLE IF NOT EXISTS client(id PRIMARY KEY, name,\
+            status_id INTEGER, adress TEXT, phone_number TEXT,\
+            FOREIGN KEY(status_id) REFERENCES statuses(id))'
         )
-        
+
+        base.execute('CREATE TABLE IF NOT EXISTS orders(id PRIMARY KEY,\
+            client_id INTEGER, position_id INTEGER,\
+                FOREING KEY(client_id REFERENCES client(id),\
+                FOREING KEY(position_id) REFERENCES position(id)))'
+        )
+
+        base.execute('CREATE TABLE IF NOT EXISTS payment_history(id PRIMARY KEY,\
+            order_id INTEGER, datetime INTEGER, sum INTEGER,\
+            FOREING KEY(order_id) REFERENCES orders(id))'
+        )
+
+        base.execute('CREATE TABLE IF NOT EXISTS position(id PRIMARY KEY,\
+            photo TEXT, name TEXT, desctiption TEXT, price INTEGER,\
+            class_id INTEGER, FOREING KEY(class_id) REFERENCES classes(id))'
+        )
+
+        base.execute('CREATE TABLE IF NOT EXISTS statuses(id PRIMARY KEY,\
+            client_status TEXT)'
+        )
+
+        base.commit()
+        print('\n****** Data status << OK >> ******\n')
+
+
+#                                                   #
+#                                                   # 
+#                                                   # 
+# ПЕРЕПИСАТЬ НАХУЙ ФУНКЦИИ SQL_ADD, SQL_READ !!!!!! #
+#                                                   # 
+#                                                   # 
+#                                                   #   
+
+
+# # Insert to database command
+# async def sql_add_command(state):
+#     async with state.proxy() as data:
+#         cur.execute('INSERT INTO menu VALUES (?, ?, ?, ?)', tuple(data.values()))
+#         base.commit()
+
+
+# Full menu output command 
+async def sql_read(message):
+    for position in cur.execute('SELECT name, description, cls.class, price \
+        FROM position AS p JOIN classes AS cls ON p.class_id = cls.id')\
+            .fetchall():
+        await bot.send_message(message.from_user.id, position[0],
+                f'{position[1]}\n \
+                \Класс: {position[2]}\n \
+                \nЦена - {position[3]}'
+        )     
+
 
 # Drinks menu output command
 async def sql_read(message):
-    for position in cur.execute('SELECT drinks FROM menu').fetchall():
-        await bot.send_photo(message.from_user.id, position[0],
+    for position in cur.execute('SELECT name, description, cls.class, price \
+        FROM position AS p JOIN classes AS cls ON p.class_id = cls.id WHERE\
+            cls.class = Напитки').fetchall():
+        await bot.send_message(message.from_user.id, position[0],
                 f'{position[1]}\n \
-                \nОписание: {position[2]}\n \
+                \Класс: {position[2]}\n \
                 \nЦена - {position[3]}'
-        )
+        )     
         
-        
+
 # Eat menu output command
 async def sql_read(message):
-    for position in cur.execute('SELECT eat FROM menu').fetchall():
-        await bot.send_photo(message.from_user.id, position[0],
+    for position in cur.execute('SELECT name, description, cls.class, price \
+        FROM position AS p JOIN classes AS cls ON p.class_id = cls.id WHERE\
+            cls.class = Еда').fetchall():
+        await bot.send_message(message.from_user.id, position[0],
                 f'{position[1]}\n \
-                \nОписание: {position[2]}\n \
+                \Класс: {position[2]}\n \
                 \nЦена - {position[3]}'
         )
